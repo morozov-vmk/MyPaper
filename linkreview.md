@@ -1,20 +1,17 @@
 | Название | Год | Автор | Ссылка | Краткое содержание |
-| -------- |---- | ----- | ------ | ---- |
-|Регрессионная модель, основанная на выпуклых комбинациях, максимально коррелирующих с откликом.|2015|А. А. Докукин, О. В. Сенько|[link](https://www.researchgate.net/publication/276415513_Regressionnaa_model_osnovannaa_na_vypuklyh_kombinaciah_maksimalno_korreliruusih_s_otklikom)|-|
-|Оптимальные выпуклые корректирующие процедуры в задачах высокой размерности.|2011|А. А. Докукин, О. В. Сенько|[link](https://eclib.psuti.ru/cgi-bin/irbis64r_12/cgiirbis_64.exe?LNG=en&C21COM=S&I21DBN=STAT&P21DBN=STAT&S21FMT=fullwebr&S21ALL=%28%3C.%3EK%3D%D0%B7%D0%B0%D0%B4%D0%B0%D1%87%D0%B8%20%D0%B2%D1%8B%D1%81%D0%BE%D0%BA%D0%BE%D0%B9%20%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%80%D0%BD%D0%BE%D1%81%D1%82%D0%B8%3C.%3E%29&Z21ID=&S21SRW=&S21SRD=&S21STN=1&S21REF=10&S21CNR=20&FT_REQUEST=&FT_PREFIX=)|-|
-|Correlation maximization in regression models based on convex combinations.|2011|Senko O., Dokukin A.|[link](https://www.researchgate.net/publication/252328557_Optimal_Convex_Correcting_Procedures_in_Problems_of_High_Dimension)|-|
-|An optimal ensemble of predictors in convex correcting procedures.|2009|Senko O.V.|[link](https://link.springer.com/article/10.1134/S1054661809030110)|-|
-|High dimensional data: p >> n in mathematical statistics and bio-medical applications.|2004|van de Geer Sara, van Houwelingen Johannes|[link](https://www.researchgate.net/publication/38322396_High-dimensional_data_P_n_in_mathematical_statistics_and_bio-medical_applications)|-|
-|Ridge Regression in Practice.|1975|Donald W. Marquardt and Ronald D. Snee|[link](https://www.jstor.org/stable/2683673)|-|
-|Regression Shrinkage and Selection via the Lasso.|1994|Robert Tibshirani|[link](https://www.jstor.org/stable/2346178)|-|
-|Regularization and variable selection via the elastic net.|2003|Hui Zou and Trevor Hastie|[link](https://www.jstor.org/stable/3647580)|-|
-|Least Angle Regression.|2004|Bradley Efron, Trevor Hastie, Iain Johnstone, Robert Tibshirani|[link](https://arxiv.org/abs/math/0406456)|-|
-|Relaxed lasso.|2006|Meinshausen N.|[link](https://people.math.ethz.ch/~nicolai/relaxo.pdf)|-|
-|A Sparse-Group lasso|2013|Noah Simon, Jerome Friedman, Trevor Hastie and Robert Tibshirani|[link](https://faculty.washington.edu/nrsimon/SGLpaper.pdf)|-|
-|Random generalized linear model: a highly accurate and interpretable ensemble predictor|2013|Song Lin, Langfelder Peter, Horvath Steve|[link](https://www.researchgate.net/publication/234156400_Random_Generalized_Linear_Model_A_Highly_Accurate_and_Interpretable_Ensemble_Predictor)|-|
-|Robust and sparse estimators for linear regression models|2017|Smucler E., Yohai V. J.|[link](https://arxiv.org/pdf/1508.01967)|-|
-|Regularization paths for generalized linear models via coordinate descent|2010|Jerome H. Friedman, Trevor Hastie, Rob Tibshirani|[link](https://www.jstatsoft.org/article/view/v033i01)|-|
-|Stacked regressions|1996|Breiman L.|[link](https://statistics.berkeley.edu/sites/default/files/tech-reports/367.pdf)|-|
-|Random forests – random features|1999|Breiman L.|[link](https://www.stat.berkeley.edu/users/breiman/random-forests.pdf)|-|
-|Ensembles of Regularized Linear Models|2001|Anthony Christidis, Laks V.S. Lakshmanan, Ezequiel Smucler, Ruben Zamar|[link](https://www.stat.ubc.ca/~ruben/website/EnsembleOfRegLinMod.pdf)|-|
-|Managing diversity in regression ensembles|2005|Brown G., Wyatt J.L., Tino P.|[link](https://www.jmlr.org/papers/volume6/brown05a/brown05a.pdf)|-|
+| -------- |---- | ----- | ------ | ------------------ |
+| Weakly Supervised Learning for Keyword Extraction | 2020 | Liu, Y., et al. | [Link](https://arxiv.org/abs/2007.03110) | Обсуждается метод извлечения ключевых слов на основе слабой разметки с применением методов машинного обучения. |
+| Distant Supervision for Relation Extraction Without Labeled Data | 2010 | Mintz, M., et al. | [Link](https://dl.acm.org/doi/10.5555/1858681.1858723) | Применение дистантного обучения для извлечения отношений между сущностями в текстах с использованием слабой разметки. |
+| Fine-tuning Pre-trained Language Models with Weak Supervision: An Approach for Text Classification | 2021 | Meng, Y., et al. | [Link](https://arxiv.org/abs/2106.04113) | Подход к тонкой настройке языковых моделей с применением слабой разметки для задач классификации текста и извлечения ключевых слов. |
+| Weakly Supervised Multi-label Keyword Extraction from Scientific Papers | 2020 | Sun, Q., et al. | [Link](https://www.aclweb.org/anthology/2020.acl-main.360) | Извлечение ключевых слов из научных статей с применением слабой многометочной разметки. |
+| Self-Training with Weak Supervision for Extracting Entities from Unlabeled Texts | 2019 | Fries, J. A., et al. | [Link](https://arxiv.org/abs/1910.07850) | Использование самотренировки и слабой разметки для извлечения сущностей из текстов без разметки. |
+| Weakly-Supervised Neural Text Classification | 2019 | Mekala, D., et al. | [Link](https://arxiv.org/abs/1905.02950) | Классификация текстов с применением слабой разметки и нейросетевых методов. |
+| Robust Text Classification Using Weak Supervision | 2019 | Awasthi, A., et al. | [Link](https://arxiv.org/abs/1905.05761) | Применение слабой разметки для создания устойчивых моделей классификации текста. |
+| Data Programming: Creating Large Training Sets, Quickly | 2016 | Ratner, A., et al. | [Link](https://dl.acm.org/doi/10.5555/3157096.3157157) | Представлена методология создания больших обучающих наборов данных с использованием слабой разметки и программирования данных. |
+| Learning from Noisy Labels with Deep Neural Networks: A Survey | 2020 | Song, H. O., et al. | [Link](https://arxiv.org/abs/2007.08199) | Описание методов обучения нейронных сетей с шумными и слабо размеченными данными. |
+| Co-Training with Weak Supervision for Text Classification | 2018 | Yu, X., et al. | [Link](https://arxiv.org/abs/1804.03135) | Применение подхода ко-тренировки с использованием слабой разметки для задач классификации текста и выделения ключевых слов. |
+| Generating Datasets with Weak Supervision from Label Proportions | 2019 | Ardehaly, E., Culotta, A. | [Link](https://arxiv.org/abs/1904.07052) | Методы создания обучающих наборов с применением слабой разметки для извлечения информации. |
+| End-to-End Weak Supervision for Entity Recognition | 2019 | Mayhew, S., et al. | [Link](https://arxiv.org/abs/1910.03460) | Решение задачи распознавания сущностей с использованием методов слабой разметки и end-to-end обучения. |
+| Weakly Supervised Joint Extraction of Entities and Relations with Reinforcement Learning | 2018 | Feng, J., et al. | [Link](https://arxiv.org/abs/1812.04486) | Обсуждается подход извлечения сущностей и отношений на основе слабой разметки с применением методов обучения с подкреплением. |
+| Text Classification Using Weak Supervision and Pretrained Models | 2021 | Wang, S., et al. | [Link](https://arxiv.org/abs/2103.12994) | Использование слабой разметки для классификации текста с использованием предварительно обученных моделей. |
+| Knowledge Graph Based Weak Supervision for Information Extraction | 2017 | Xiang, Y., et al. | [Link](https://www.aclweb.org/anthology/D17-1302) | Применение знаний из графов для слабой разметки и извлечения информации из текстов. |
