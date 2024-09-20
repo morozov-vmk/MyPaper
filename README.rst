@@ -24,7 +24,9 @@ Abstract
 ========
 
 
-This thesis focuses on keyword extraction from texts using weak supervision methods. Traditional approaches to keyword extraction rely heavily on large, manually annotated datasets, making them resource-intensive and inefficient for large-scale applications. This work explores weak supervision techniques, which leverage noisy or incomplete labels, reducing the need for manual annotation. The research proposes an automatic keyword extraction system, evaluates its performance on various text corpora, and compares it to classical supervised methods. The goal is to demonstrate how weakly supervised models can achieve competitive results while significantly reducing annotation costs.
+Дипломная работа посвящена извлечению ключевых слов из текстов с использованием методов слабой разметки и обучения с подкреплением (Reinforcement Learning, RL). Традиционные методы извлечения ключевых слов требуют значительного объема вручную размеченных данных, что делает их малопригодными для работы с большими и разнородными корпусами текстов. В данном исследовании предлагается подход, основанный на слабой разметке, где модели обучаются на неполных или неточных метках. Для улучшения качества извлечения ключевых слов используется метод обучения с подкреплением, который позволяет модели адаптироваться и оптимизировать результаты на основе получаемой обратной связи.
+
+Предлагаемая система извлечения ключевых слов будет использовать стратегию RL для итеративного улучшения качества извлечения, где агент учится выбирать наиболее релевантные ключевые слова, оценивая их значимость в зависимости от контекста. Это позволит улучшить точность извлечения в условиях ограниченности разметки и данных. В работе будут проведены эксперименты с оценкой эффективности предложенного подхода на различных текстовых корпусах и сравнением его с традиционными методами извлечения ключевых слов.
 
 Research publications
 ===============================
