@@ -23,7 +23,8 @@
 Abstract
 ========
 
-Purus sit amet luctus venenatis lectus magna fringilla. Condimentum id venenatis a condimentum vitae sapien. Auctor neque vitae tempus quam pellentesque nec nam aliquam. Eget egestas purus viverra accumsan in. Nam aliquam sem et tortor. Donec et odio pellentesque diam volutpat commodo. Odio pellentesque diam volutpat commodo sed egestas. Sit amet dictum sit amet justo. Pellentesque sit amet porttitor eget. Imperdiet sed euismod nisi porta lorem mollis aliquam ut. Quis varius quam quisque id diam vel quam elementum. Ornare lectus sit amet est placerat in. Vulputate dignissim suspendisse in est ante. Elit sed vulputate mi sit amet mauris. Egestas sed tempus urna et pharetra pharetra. Viverra tellus in hac habitasse platea dictumst vestibulum rhoncus.
+
+This thesis focuses on keyword extraction from texts using weak supervision methods. Traditional approaches to keyword extraction rely heavily on large, manually annotated datasets, making them resource-intensive and inefficient for large-scale applications. This work explores weak supervision techniques, which leverage noisy or incomplete labels, reducing the need for manual annotation. The research proposes an automatic keyword extraction system, evaluates its performance on various text corpora, and compares it to classical supervised methods. The goal is to demonstrate how weakly supervised models can achieve competitive results while significantly reducing annotation costs.
 
 Research publications
 ===============================
