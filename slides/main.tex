@@ -1,192 +1,305 @@
-\documentclass[10pt,pdf,hyperref={unicode}]{beamer}
-
-\mode<presentation>
-{
-\usetheme{boxes}
-\beamertemplatenavigationsymbolsempty
-
-\setbeamertemplate{footline}[page number]
-\setbeamersize{text margin left=0.5em, text margin right=0.5em}
-}
+\documentclass{beamer}
 
 \usepackage[utf8]{inputenc}
 \usepackage[english, russian]{babel}
-\usepackage{bm}
-\usepackage{multirow}
-\usepackage{ragged2e}
-\usepackage{indentfirst}
-\usepackage{multicol}
-\usepackage{subfig}
-\usepackage{amsmath,amssymb}
-\usepackage{enumerate}
-\usepackage{mathtools}
-\usepackage{comment}
-\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{booktabs}
 
-\usepackage[all]{xy}
+\title{Поиск по рукописям А. В. Сухово-Кобылина}
+\author{Морозов Иван Дмитриевич}
+\institute{ВМК МГУ имени М. В. Ломоносова}
+\date{\today}
 
-\usepackage{tikz}
-\usetikzlibrary{positioning,arrows}
-
-\tikzstyle{name} = [parameters]
-\definecolor{name}{rgb}{0.5,0.5,0.5}
-
-\usepackage{caption}
-\captionsetup{skip=0pt,belowskip=0pt}
-
-\newtheorem{rustheorem}{Теорема}
-\newtheorem{russtatement}{Утверждение}
-\newtheorem{rusdefinition}{Определение}
-
-% colors
-\definecolor{darkgreen}{rgb}{0.0, 0.2, 0.13}
-\definecolor{darkcyan}{rgb}{0.0, 0.55, 0.55}
-
-\AtBeginEnvironment{figure}{\setcounter{subfigure}{0}}
-
-\captionsetup[subfloat]{labelformat=empty}
-
-%----------------------------------------------------------------------------------------------------------
-
-\title[Пример слайдов по работе]{Пример слайдов по работе \\ курса}
-\author{И.\,О.\,Фамилия}
-
-\institute[]{Московский физико-технический институт}
-\date[2022]{\small 10\;февраля\;2022\,г.}
-
-%---------------------------------------------------------------------------------------------------------
 \begin{document}
 
+% Титульный слайд
 \begin{frame}
-\titlepage
+    \titlepage
 \end{frame}
 
-%----------------------------------------------------------------------------------------------------------
-\section{Слайд об исследованиях}
-\begin{frame}{Слайд об исследованиях}
-\bigskip
-Исследуется проблема \ldots.
-\begin{block}{Цель исследования~---}
-предложить метод \ldots.
-\end{block}
-\begin{block}{Требуется предложить}
-\justifying
-\begin{enumerate}[1)]
-\item метод \ldots,
-\item метод \ldots,
-\item метод \ldots.
-\end{enumerate}
-\end{block}
-\begin{block}{Решение}
-Для \ldots.
-\end{block}
+% Цели
+\begin{frame}{Цели}
+    \begin{itemize}
+        \item Разработать модель для распознавания исторических рукописей.
+        \item Произвести разбивку страниц рукописей на отдельные строки, выполнить нормализацию
+        \item Оптимизировать методы для работы с пропусками, зачеркиваниями, многозначными текстами.
+        \item Снизить Character Error Rate (CER).
+        \item Создать аугментации, адаптированные для рукописных документов.
+        \item Создать аугментации, адаптированные для рукописных документов.
+        \item Предложить алгоритм поиска по слабой расшифровке.
+    \end{itemize}
 \end{frame}
 
-%---------------------------------------------------------------------------------------------------------
-\section{Постановка задачи \ldots}
-\begin{frame}{Постановка задачи \ldots}
-Заданы
-\begin{enumerate}[1)]
-    \item признаки \ldots,
-    \item целевая переменная \ldots,
-    \item \ldots.
-\end{enumerate}
-
-\ldots
-
-\bigskip
-
-Требуется выбрать модель \ldots из множества
-\[
-	\mathfrak{G} = \left\{\mathbf{g}| \mathbf{g}:\mathbb{R}^{n} \to \mathbb{Y}^\prime\right\}.
-\]
-Оптимизационная задача \ldots:
-\[
-	\mathbf{g} = \arg\min_{\mathbf{g} \in \mathfrak{G}} \mathcal{L}\bigr(\ldots\bigr),
-\]
-где $\mathcal{L}$~--- функция ошибки.
-
-\bigskip
-\footnotetext[1]{\textit{Lopez-Paz D., Bottou L., Scholkopf B., Vapnik V.} Unifying distillation and privileged information // ICLR, 2016.}
-\footnotetext[2]{\textit{Hinton G., Vinyals O., Dean J.} Distilling the knowledge in a neural network // NIPS, 2015.}
-\end{frame}
-
-%----------------------------------------------------------------------------------------------------------
-\section{Предложенный метод \ldots}
-\begin{frame}{Предложенный метод \ldots}
-~\\[-1mm]
-Заданы
-\begin{enumerate}[1)]
-	\item \ldots,
-	\item \ldots.
-\end{enumerate}
-
-\medskip
-Параметрические семейства:
-\[
-\setlength\abovedisplayskip{0pt}
-\mathfrak{F} = \left\{\mathbf{f}| \mathbf{f} = \text{softmax}\bigr(\mathbf{v}\bigr(\mathbf{x}\bigr)/T\bigr), \quad \mathbf{v}: \mathbb{R}^{n} \to \mathbb{R}^K \right\},
-\]
-\[
-\mathfrak{G} = \left\{\mathbf{g}| \mathbf{g} = \text{softmax}\bigr(\mathbf{z}\bigr(\mathbf{x}\bigr)/T\bigr), \quad \mathbf{z}: \mathbb{R}^n \to \mathbb{R}^K \right\},
-\]
-где~\ldots.
-
-\medskip
-Функция ошибки
-\[
-\setlength\abovedisplayskip{0pt}
-\begin{aligned}
-   \mathcal{L}\bigr(\mathbf{g}\bigr) = &-\sum_{i=1}^{m}\underbrace{{\sum_{k=1}^{K}y^k_i\log\mathbf{g}\bigr(\mathbf{x}_i\bigr)\bigr|_{T=1}}}_{\text{исходная функция потерь}}- \sum_{i=1}^{m}\underbrace{{\sum_{k=1}^{K}\mathbf{f}\bigr(\mathbf{x}_i\bigr)\bigr|_{T=T_0}\log\mathbf{g}\bigr(\mathbf{x}_i\bigr)\bigr|_{T=T_0}}}_{\text{слагаемое дистилляции}},
-\end{aligned}
-\setlength\belowdisplayskip{0pt}
-\]
-где~\ldots.
-
-Оптимальная модель выбирается из класса,
-$\hat{\mathbf{g}} = \arg\min\limits_{\mathbf{g} \in \mathfrak{G}_{\text{cl}}} \mathcal{L}\bigr(\mathbf{g}\bigr).$
-\end{frame}
-
-%----------------------------------------------------------------------------------------------------------
-\section{Анализ предложенного метода \ldots}
-\begin{frame}{Анализ предложенного метода \ldots}
-\justifying
-
-На графике показана зависимость значения параметров$w_i$ в зависимости от параметра~$l_1$-регуляризации~$C$.
-\begin{figure}[h!]
-\includegraphics[width=0.45\textwidth]{../figures/log_reg_cs_exp.eps}
-\includegraphics[width=0.45\textwidth]{../figures/log_reg_cs_exp.eps}
-\end{figure}
-
-С увеличением параметра регуляризации~$C$ число ненулевых параметров~$w_i$ уменьшается.
-
-\end{frame}
-
-%----------------------------------------------------------------------------------------------------------
-\section{Выводы}
-\begin{frame}{Выводы}
-\justifying
-	\begin{enumerate}
-	\justifying
-	    \item Предложен \ldots.
-        \item Доказаны теоремы \ldots, 
+% One-slide (вся работа на одном слайде)
+\begin{frame}
+    \frametitle{Распознавание  рукописей А. В. Сухово-Кобылина}
+    
+    \begin{minipage}{0.17\textwidth}
+        \includegraphics[width=\textwidth]{1.png}
+    \end{minipage}%
+    \hfill
+    \begin{minipage}{0.83\textwidth}
+        \textbf{Главная цель:}
         \begin{itemize}
-            \item[---] \ldots,
-            \item[---] \ldots.
+            \item Расшифровка рукописей ($\approx 10000$ страниц) с Character Error Rate менее 10\%
         \end{itemize}
-        \item Предложен метод \ldots
+        \textbf{Альтернативная цель:}
         \begin{itemize}
-            \item[---] \ldots,
-            \item[---] \ldots.
+            \item По слабой расшифровке разработать алгоритм выделения ключевых слов
         \end{itemize}
-        \item Предложены методы \ldots
-        \begin{itemize}
-            \item[---] \ldots,
-            \item[---] \ldots.
-        \end{itemize}
-        \item Предложена вероятностная интерпретации \ldots.
-	\end{enumerate}
+        \vspace{0.5cm}
+        \textbf{Ключевые особенности решения:}
+        \begin{enumerate}
+            \item \textbf{Предобработка данных.} Подготовка и разметка датасета.
+            \item \textbf{Использование CTC-loss.} Использование для работы с пропусками и неравномерностью.
+            \item \textbf{Архитектура Vertical Attention Network.} Анализ рукописных страниц с вертикальным вниманием.
+        \end{enumerate}
+    \end{minipage}
+    
 \end{frame}
-%----------------------------------------------------------------------------------------------------------
 
-\end{document} 
+% Литература
+\begin{frame}{Литература}
+    \begin{enumerate}
+        \item Mark Potanin, Denis Dimitrov, Alex Shonenkov, Vladimir Bataev, Denis Karachev,
+Maxim Novopoltsev - Digital Peter: Dataset, Competition and Handwriting Recognition
+Methods, arXiv:2103.09354 [cs.CV]
+        \item Denis Coquenet, Clement Chatelain, Thierry Paquet - SPAN: a Simple Predict & Align
+Network for Handwritten Paragraph Recognition, ICDAR 2021
+        \item Minghao Li and Tengchao Lv and Jingye Chen and Lei Cui and Yijuan Lu and Dinei
+Florencio and Cha Zhang and Zhoujun Li and Furu Wei - TrOCR: Transformer-based
+Optical Character Recognition with Pre-trained Models, CoRR 2022
+        \item Mohamed Yousef, Tom E. Bishop - OrigamiNet: Weakly-Supervised, Segmentation-Free,
+One-Step, Full Page Text, Recognition by learning to unfold, CVPR 2020
+        \item Denis Coquenet, Clement Chatelain, Thierry Paquet - End-to-end Handwritten
+Paragraph Text Recognition Using a Vertical Attention Network
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}{Гипотеза}
+
+\begin{minipage}{0.4\textwidth}
+        \includegraphics[width=\textwidth]{438-1-219 л51.jpg}
+    \end{minipage}%
+    \hfill
+    \begin{minipage}{0.6\textwidth}
+        \textbf{Гипотеза:} возможно распознать тексты Сухово-Кобылина, используя архитектуру VAN, предобученную на датасете IAM, с качеством, достаточным для поиска рукописных слов по запросам.
+    \end{minipage}
+\end{frame}
+
+\begin{frame}{Постановка задачи}
+Предложить модель и метод обучения, эффективно работа-
+ющие на архиве дневников Сухова-Кобылина. Главными особенностями данного архива является
+достаточно неплотная компоновка строчек, наличие нескольких языков, пропущенные слова и символы в разметке. По слабой расшифровке организовать поиск. Описание основного алгоритма СТС и определение расстояния Левенштейна приведены далее.
+\end{frame}
+% Problem Statement — гипотеза и модель
+% Problem Statement — гипотеза и модель
+\begin{frame}{Описание алгоритма CTC}
+
+    \begin{itemize}
+        \item Рассматривается целевая строка \( l \) длины \( N \) и матрица вероятностей \( P \) ширины \( T \geq N \), соответствующей числу предсказаний.
+        \item Выравнивания \( l' \) формируются путем:
+        \begin{itemize}
+            \item вставки символов \( \epsilon \) между всеми повторяющимися символами,
+            \item произвольного повторения любого символа,
+            \item добавления \( \epsilon \) в начало и конец выравнивания.
+        \end{itemize}
+        \item Строка \( [\epsilon, l_1, \epsilon, l_2, \ldots, l_N, \epsilon] \) имеет длину \( 2 \cdot N + 1 = K \).
+        \item Динамическое пересчет выравниваний \( \alpha_{k,t} \) для левых подстрок целевой строки:
+        \[
+        \alpha_{k,t} = (\alpha_{k-1,t-1} + \alpha'_{k,t-1} + I[l_k \neq l'_{k-2}] \cdot \alpha_{k-2,t-1}) \cdot p(t, \text{ord}(l'_k)),
+        \]
+        где \( \alpha_{0,0} = P(0, \text{ord}(\epsilon)) \) для первого символа \( \epsilon \) в \( l' \).
+        \item Итоговая вероятность всех выравниваний:
+        \[
+        P(l|X) = \alpha_{K,T} + \alpha_{K-1,T}.
+        \]
+    \end{itemize}
+    \textbf{CTC-loss:}
+    \[
+    \mathcal{L}_{CTC} = -\ln P(l|X).
+    \]
+\end{frame}
+
+% Problem Statement — качество
+\begin{frame}{Критерий качества}
+    \textbf{Основные метрики качества:}
+    \begin{itemize}
+        \item \textbf{Character Error Rate (CER):}
+        \[
+        CER = \frac{\text{Число ошибок}}{\text{Общее количество символов}} \cdot 100\%
+        \]
+        где ошибки включают вставки, удаления и замены символов.
+        \item \textbf{Word Error Rate (WER):}
+        \[
+        WER = \frac{S + D + I}{N} \cdot 100\%
+        \]
+        где:
+        \begin{itemize}
+            \item \(S\) — количество замен слов,
+            \item \(D\) — количество удалений слов,
+            \item \(I\) — количество вставок слов,
+            \item \(N\) — общее количество слов в эталонной разметке.
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+% Решение проблемы — теоретическая часть
+\begin{frame}{Описание модели}
+    \includegraphics[width=0.9\textwidth]{arc.png}
+    Будет использоваться модель Vertical Attention Network в строчном варианте. Строчная архитектура представлена полностью сверточной нейронной
+сетью, состоящей из кодировщика, содержащего 10 блоков с 3 свертками в каждом, и од-
+номерного сверточного декодировщика, который переводит внутреннее представление
+модели в набор вероятностей. Модель выдаёт пространственное
+предсказание символов в строке, поэтому к выходам применяется жадное декодирова-
+ние CTC, а при обучении используется CTC-loss.
+\end{frame}
+
+% Цели вычислительного эксперимента
+\begin{frame}{Нарезка страницы на строки}
+    Программа локализует изображения строк на рукописных страницах
+    \includegraphics[width=0.9\textwidth]{mest.png}
+\end{frame}
+
+\begin{frame}{Обучение}
+\includegraphics[width=0.9\textwidth]{rt.png}
+\end{frame}
+
+\begin{frame}{Результаты обработки данных и обучения модели}
+\begin{itemize}
+    \item В разметке историков присутствовали нераспознанные элементы строк, обозначенные специальными символами.
+    \item Принято решение удалить такие строки, так как алгоритм локализации пропусков пока не разработан.
+    \item Используется предобученная на англоязычном IAM модель (модель умеет выделять буквы в строке)
+    \item Итоговое разбиение данных:
+    \begin{itemize}
+        \item \textbf{Обучение (train)}: 1505 строк.
+        \item \textbf{Валидация (validation)}: 119 строк.
+        \item \textbf{Тест (test)}: 74 строки.
+    \end{itemize}
+    
+    
+    \item Результаты дообучения (CER, \%):
+    \begin{itemize}
+        \item \textbf{Обучение (train)}: 0.37\%.
+        \item \textbf{Валидация (validation)}: 18.08\%.
+        \item \textbf{Тест (test)}: 19.03\%.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+% Анализ ошибок
+\begin{frame}{Анализ ошибок}
+    \includegraphics[width=0.9\textwidth]{res.png}
+\end{frame}
+
+\begin{frame}{Этапы эксперимента <<Поиск>>}
+    \begin{itemize}
+        \item Расшифровать рукописный текст с использованием модели.
+        \item Организовать поиск пользовательского запроса в тексте.
+        \item Применить расстояние Левенштейна для поиска релевантных слов.
+        \item Отобразить топ $n$ слов, упорядоченных по возрастанию метрики.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Методология: Расстояние Левенштейна}
+    \textbf{Определение}: Расстояние Левенштейна измеряет минимальное количество операций (вставка, удаление, замена), необходимых для превращения строки $s_1$ в строку $s_2$.
+    \begin{equation}
+        d(i, j) = \begin{cases} 
+            \max(i, j), & \text{если } \min(i, j) = 0, \\
+            \min\begin{cases} 
+                d(i-1, j) + 1, \\
+                d(i, j-1) + 1, \\
+                d(i-1, j-1) + \delta(s_1[i], s_2[j])
+            \end{cases}, & \text{иначе.}
+        \end{cases}
+    \end{equation}
+    \textbf{Где:}
+    \begin{itemize}
+        \item $\delta(s_1[i], s_2[j]) = 0$, если символы совпадают, иначе $1$.
+        \item $d(i, j)$ --- расстояние для первых $i$ и $j$ символов строк.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Процесс поиска}
+    \begin{enumerate}
+        \item По файлам с координатами строк на страницах произвести локализацию.
+        \item Преобразовать запрос пользователя в нижний регистр.
+        \item Для каждого слова в тексте вычислить расстояние Левенштейна до запроса.
+        \item Упорядочить результаты по:
+        \begin{itemize}
+            \item Возрастанию расстояния Левенштейна.
+            \item Убыванию частоты встречаемости слова.
+        \end{itemize}
+        \item Отобразить топ $n$ релевантных слов.
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}{Результаты}
+    \textbf{Пример вывода:}
+    \begin{itemize}
+        \item \textbf{Запрос:} \textit{Выкса}
+        \item \textbf{Релевантные слова:}
+        \begin{itemize}
+            \item Слово: \textit{выксу}, Частота: 14
+            \item Слово: \textit{вуксу}, Частота: 4
+            \item Слово: \textit{выкъ}, Частота: 6
+            \item Слово: \textit{виксы}, Частота: 3
+        \end{itemize}
+
+    \end{itemize}
+
+    \begin{itemize}
+        \item \textbf{Запрос:} \textit{Петербург}
+        \item \textbf{Релевантные слова:}
+        \begin{itemize}
+            \item Слово: \textit{петербургъ}, Частота: 11
+            \item Слово: \textit{петербурга}, Частота: 10
+            \item Слово: \textit{пеперурга}, Частота: 5
+            \item Слово: \textit{петерургѣ}, Частота: 4
+            \item Слово: \textit{петербуръ}, Частота: 4
+        \end{itemize}
+
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Пример визуализации}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.8\textwidth]{example.png}
+        \caption{Выделение строк с релевантными словами}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Зависимость пропуска цели от top $n$}
+    \begin{table}[h!]
+        \centering
+        \begin{tabular}{|c|c|}
+            \hline
+            \textbf{Top $n$} & \textbf{Пропуск цели (\%)} \\
+            \hline
+            1 & 76 \\
+            5 & 49 \\
+            10 & 32 \\
+            20 & 17 \\
+            50 & 5 \\
+            \hline
+        \end{tabular}
+        \caption{Влияние количества top $n$ на пропуск цели.}
+    \end{table}
+\end{frame}
+
+% Результаты и выводы
+\begin{frame}{Результаты и заключение}
+    \begin{itemize}
+        \item Снижение CER до 19\% - слабая расшифровка.
+        \item Нормализация строк улучшает результаты.
+        \item Подход подходит для сложных рукописных текстов (модель распознает текст, который обычному человеку распознать затруднительно).
+        \item Алгоритм поиска позволяет сократить время нахождения необходимой информацию, понизить вероятность пропуска цели можно путём увеличения $n$.
+    \end{itemize}
+\end{frame}
+
+\end{document}
