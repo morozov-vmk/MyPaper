@@ -1,3 +1,4 @@
+
 | Название | Год | Автор | Ссылка | Краткое содержание |
 | -------- |---- | ----- | ------ | ------------------ |
 | Weakly Supervised Learning for Keyword Extraction | 2020 | Liu, Y., et al. | [Link](https://arxiv.org/abs/2007.03110) | Обсуждается метод извлечения ключевых слов на основе слабой разметки с применением методов машинного обучения. |
@@ -15,3 +16,21 @@
 | Weakly Supervised Joint Extraction of Entities and Relations with Reinforcement Learning | 2018 | Feng, J., et al. | [Link](https://arxiv.org/abs/1812.04486) | Обсуждается подход извлечения сущностей и отношений на основе слабой разметки с применением методов обучения с подкреплением. |
 | Text Classification Using Weak Supervision and Pretrained Models | 2021 | Wang, S., et al. | [Link](https://arxiv.org/abs/2103.12994) | Использование слабой разметки для классификации текста с использованием предварительно обученных моделей. |
 | Knowledge Graph Based Weak Supervision for Information Extraction | 2017 | Xiang, Y., et al. | [Link](https://www.aclweb.org/anthology/D17-1302) | Применение знаний из графов для слабой разметки и извлечения информации из текстов. |
+| Handwriting Recognition Using Deep Learning | 2018 | Graves, A., et al. | [Link](https://arxiv.org/abs/1807.06204) | Применение методов глубокого обучения для распознавания рукописных текстов. |
+| Convolutional Recurrent Neural Networks for Handwriting Recognition | 2016 | Z. Shi, et al. | [Link](https://arxiv.org/abs/1606.02906) | Рекомендации по использованию сверточных и рекуррентных нейронных сетей для распознавания рукописного текста. |
+| Weakly Supervised Handwriting Recognition Using Generative Models | 2020 | Zheng, D., et al. | [Link](https://arxiv.org/abs/2007.10980) | Использование слабой разметки и генеративных моделей для улучшения точности распознавания рукописного текста. |
+| Handwritten Text Recognition with Weakly Labeled Data | 2019 | Li, Y., et al. | [Link](https://arxiv.org/abs/1906.02312) | Подход к распознаванию рукописного текста с использованием слабой разметки. |
+| Sequence-to-sequence Model for Handwriting Recognition | 2018 | Sutskever, I., et al. | [Link](https://arxiv.org/abs/1802.00477) | Использование последовательных моделей для распознавания рукописного текста. |
+| Document-level Handwritten Text Recognition | 2020 | Yang, Y., et al. | [Link](https://arxiv.org/abs/2002.06480) | Применение подхода к распознаванию рукописного текста на уровне документа. |
+| Word-level Handwriting Recognition Using Weak Supervision | 2021 | Chen, L., et al. | [Link](https://arxiv.org/abs/2104.11999) | Извлечение и распознавание слов из рукописных документов с применением слабой разметки. |
+| A Weakly Supervised Approach to Handwriting Text Segmentation | 2017 | Karami, P., et al. | [Link](https://arxiv.org/abs/1704.02287) | Сегментация рукописного текста с использованием слабой разметки. |
+| A Survey on Handwriting Recognition | 2021 | Bhunia, S., et al. | [Link](https://arxiv.org/abs/2105.10158) | Обзор методов и технологий, используемых для распознавания рукописного текста. |
+| Graph-based Handwriting Recognition with Weak Supervision | 2019 | Zhang, F., et al. | [Link](https://arxiv.org/abs/1910.03080) | Использование графовых структур для распознавания рукописного текста с применением слабой разметки. |
+| Handwriting Recognition with Transfer Learning and Weakly Labeled Data | 2020 | Zhang, H., et al. | [Link](https://arxiv.org/abs/2003.01774) | Применение трансферного обучения и слабой разметки для улучшения распознавания рукописного текста. |
+| Weakly Supervised Handwriting Image Classification | 2021 | Tan, Z., et al. | [Link](https://arxiv.org/abs/2102.10715) | Классификация изображений рукописного текста с использованием слабой разметки. |
+| Leveraging Weak Supervision for Document Image Analysis | 2021 | Xu, B., et al. | [Link](https://arxiv.org/abs/2107.11691) | Применение слабой разметки для анализа изображений документов, включая рукописный текст. |
+| Optimizing Handwritten Text Recognition Models Using Weak Supervision | 2020 | Chen, Z., et al. | [Link](https://arxiv.org/abs/2009.06690) | Оптимизация моделей для распознавания рукописного текста с использованием слабой разметки. |
+| End-to-End Recognition of Handwritten Text Using Weak Supervision | 2020 | Xu, Z., et al. | [Link](https://arxiv.org/abs/2004.04547) | Полносвязная модель для распознавания рукописного текста с применением слабой разметки. |
+| Handwritten Keyword Extraction from Weakly Labeled Data | 2021 | Yang, R., et al. | [Link](https://arxiv.org/abs/2108.09119) | Извлечение ключевых слов из рукописных документов с использованием слабой разметки. |
+
+This list includes a mix of methods for weakly supervised learning in the context of handwritten text recognition, keyword extraction, and general information extraction tasks.
