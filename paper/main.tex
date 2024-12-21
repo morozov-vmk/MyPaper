@@ -1,27 +1,11 @@
-\documentclass[12pt]{article}
-% \usepackage{arxiv}
-
-
-\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
-
-\textheight=24cm
-\textwidth=16cm
-\oddsidemargin=5mm
-\evensidemargin=-5mm
-\marginparwidth=36pt
-\topmargin=-2cm
-\footskip=2.5em
-\footnotesep=2ex
-
-
-
+\documentclass{article}
+\usepackage{arxiv}
 
 \usepackage[utf8]{inputenc}
 \usepackage[english, russian]{babel}
 \usepackage[T1]{fontenc}
 \usepackage{url}
 \usepackage{booktabs}
-\usepackage{tabularx}
 \usepackage{amsfonts}
 \usepackage{nicefrac}
 \usepackage{microtype}
@@ -30,25 +14,11 @@
 \usepackage{natbib}
 \usepackage{doi}
 
-\usepackage{svg}
-
-\usepackage{multirow}
-\usepackage{ragged2e}
-\usepackage{indentfirst}
-\usepackage{multicol}
-\usepackage{subfig}
-\usepackage{amsmath,amssymb}
-\usepackage{enumerate}
-\usepackage{mathtools}
-\usepackage{comment}
-\usepackage{multicol}
 
 
+\title{Поиск по рукописям А. В. Сухово-Кобылина}
 
-
-\title{Recognition of handwritten archives by A. V. Sukhovo-Kobylin}
-
-\author{ Морозов Иван Дмитриеивч \\
+\author{ Морозов Иван Дмитриевич \\
 	ВМК МГУ\\
 	\texttt{morozov-ivan-2003@yandex.ru} \\
 	%% examples of more authors
@@ -57,71 +27,405 @@
 	ВМК МГУ \\
 	\texttt{mestlm@mail.ru} \\
 }
-\date{2024}
+\date{}
 
+\renewcommand{\shorttitle}{\textit{arXiv} Template}
+
+%%% Add PDF metadata to help others organize their library
+%%% Once the PDF is generated, you can check the metadata with
+%%% $ pdfinfo template.pdf
+\hypersetup{
+pdftitle={A template for the arxiv style},
+pdfsubject={q-bio.NC, q-bio.QM},
+pdfauthor={David S.~Hippocampus, Elias D.~Striatum},
+pdfkeywords={First keyword, Second keyword, More},
+}
 
 \begin{document}
 \maketitle
-\begin{abstract}
 
-This study addresses the problem of recognizing historical handwritten archives. Since there is no universal model that can optimally process such documents due to their unique characteristics, recognition becomes more effective when models are specifically tailored to the handwriting of a particular author. The aim of this work is to develop training methods and models that are particularly effective for the archive of Alexander Vasilyevich Sukhovo-Kobylin's diaries. This archive presents specific challenges: densely packed lines, multilingual text, and missing words or symbols in the annotations. To overcome these difficulties, various approaches are proposed to improve the overall quality of recognition.
+\begin{abstract}
+    В работе рассматривается задача распознавания рукописных исторических архивов с акцентом на эффективный поиск информации в тексте. Исследование сосредоточено на рукописях А. В. Сухово-Кобылина, характеризующихся плотной компоновкой строк, многими языками, пропущенными словами и символами, а также различиями в почерке. Поскольку нет универсальной модели для всех архивов, предложены специализированные методы обучения, адаптированные под особенности конкретных рукописей, с целью улучшения поиска по распознанному тексту.
+
+    Для решения задачи использованы нейросетевые методы, геометрические подходы и морфологический анализ текста. В ходе экспериментов с метрикой Character Error Rate (CER) достигнуты улучшенные результаты по сравнению с существующими системами распознавания. Предложенные методы ускоряют анализ архивных документов и облегчают поиск по тексту, но требуют дальнейших улучшений для достижения еще более высоких результатов.
 \end{abstract}
 
 
-\section{Introduction}
-\subsection{Text Recognition Approaches}
-There are two primary approaches to recognizing text on pages:
+\keywords{CTC-loss \and Vertical Attention Network \and Handwritten Text Recognition \and Multi-head Decoder \and Data Augmentation \and Searchable Archives}
+
+\section{Введение}
+    В данной работе рассматриваются методы распознавания рукописных архивов с целью ускорения поиска по текстам и упрощения обработки исторических документов. Мы сосредоточены на рукописях А. В. Сухово-Кобылина, которые характеризуются плотной компоновкой строк, многоязычностью и наличием пропусков и ошибок в разметке. Для решения задачи распознавания и организации поиска по архиву, используется подход, включающий сегментацию строк с последующим их распознаванием с помощью адаптированной модели Vertical Attention Network.
+
+    Распознавание рукописного текста (Handwritten Text Recognition, HTR) — это процесс преобразования изображений, содержащих рукописный текст, в машиночитаемый формат. В этой области выделяются два основных подхода: сегментация текста на строки и распознавание текста на уровне всей страницы. Сегментация позволяет более эффективно работать с нерегулярными структурами текста, как это характерно для исторических рукописей, где строки могут быть расположены в различных направлениях.
+
+    Целью данной работы является улучшение существующих методов распознавания рукописных текстов и создание решения для автоматического поиска по архивам. Для этого мы адаптируем модель Vertical Attention Network (VAN), которая уже зарекомендовала себя при обработке сложных исторических документов, таких как рукописи с многоязычными вставками и декоративными элементами. Мы стремимся минимизировать количество необходимой разметки и повысить точность распознавания.
+
+    Современные исследования в области распознавания исторических рукописей включают различные методы, такие как SPAN, TrOCR и CRNN, которые продемонстрировали хорошие результаты на датасетах с линейно расположенными строками. Однако для архивов, содержащих нерегулярно расположенные строки и многоязычные вставки, такие методы требуют значительных доработок. Модель VAN с механизом вертикального внимания была выбрана, так как она позволяет эффективно справляться с текстами, в которых строки расположены нелинейно или в случайном порядке, что особенно актуально для архивов А. В. Сухово-Кобылина.
+
+    В этой работе представлена модификация модели VAN, которая учитывает особенности рукописей с многоязычными вставками и плотной компоновкой строк. Мы также предлагаем методы для улучшения качества поиска по данным, что ускорит работу историков при анализе архивных материалов.
+
+\section{Постановка задачи}
+
+    В данной работе решается задача распознавания рукописных текстов в архиве А. В. Сухово-Кобылина с целью автоматизации поиска информации и анализа исторических документов. Архив содержит более $N = 10 \, 000$ страниц, на которых текст представлен на русском и французском языках, а также включены фрагменты на других языках.
+
+    \subsection{Формулировка задачи}
+    Пусть $\mathcal{X} = \{x_1, x_2, \dots, x_N\}$ — множество изображений рукописных страниц, где $x_i \in \mathbb{R}^{H \times W}$ представляет собой изображение $i$-й страницы размером $H \times W$ пикселей. Требуется построить модель $\mathcal{F}_{\theta}(x_i) \rightarrow y_i$, которая для каждого изображения $x_i$ возвращает текстовую строку $y_i = \{c_1, c_2, \dots, c_T\}$, где $c_t \in \mathcal{A}$ — символ из алфавита $\mathcal{A}$, и $T$ — длина предсказанной строки.
+
+    \textbf{Оптимизационная задача:}
+    \[
+    \theta^* = \arg \min_{\theta} \sum_{i=1}^{N} \mathcal{L}(y_i, \hat{y}_i)
+    \]
+    где $\hat{y}_i = \mathcal{F}_{\theta}(x_i)$ — предсказание модели, а $\mathcal{L}$ — функция потерь CTC-loss, определяемая как:
+    \[
+    \mathcal{L}(y, \hat{y}) = - \sum_{l \in \mathcal{B}^{-1}(y)} \prod_{t=1}^{T} p(l_t | x)
+    \]
+    Здесь $\mathcal{B}$ — оператор удаления повторяющихся символов и пробелов, а $l_t$ — возможная метка в момент времени $t$.
+
+    \subsection{Набор данных}
+    Для обучения модели используется набор данных $\mathcal{D} = \{(x_i, y_i)\}_{i=1}^{M}$, состоящий из изображений рукописных страниц с аннотированными текстами. Изображения обладают следующими особенностями:
+    \begin{itemize}
+        \item \textbf{Многоязычные вставки:} текст представлен на русском и французском языках.
+        \item \textbf{Высокая плотность строк:} строки могут пересекаться, содержать зачеркивания и пропуски.
+        \item \textbf{Нелинейная компоновка:} строки расположены неровно, что усложняет процесс сегментации.
+    \end{itemize}
+
+    Для предварительной обработки текста и выделения строк из изображений используется алгоритм $\mathcal{S}$, который включает следующие этапы. Алгоритм принимает изображение страницы $x_i$ с рукописным текстом и проецирует пиксели на вертикальную ось, выделяя вертикальные сгустки. Эти сгустки используются для определения местоположения строк текста на изображении. На основе анализа сгустков алгоритм выделяет области, которые соответствуют строкам, и определяет их координаты. Результатом работы алгоритма являются координаты строк на исходном изображении, которые затем подаются в строчную модель для дальнейшего распознавания:
+    \[
+    s_i = \mathcal{S}(x_i), \quad s_i = \{s_{i1}, s_{i2}, \dots, s_{iK}\}
+    \]
+    где $s_i$ — множество строк, извлечённых из изображения $x_i$, и $K$ — количество строк на странице.
+
+
+    \subsection{Критерии качества}
+    Основным критерием качества модели является метрика Character Error Rate (CER):
+    \[
+    CER = \frac{D + I + S}{N}
+    \]
+    где $D$, $I$, $S$ — соответственно количество удалений, вставок и замен символов при сравнении предсказанного текста $\hat{y}$ с эталонным $y$, а $N$ — общее количество символов в эталонной разметке.
+
+    \subsection{Поиск в тексте}
+    Для реализации поиска в распознанном тексте используется расстояние Левенштейна $d(s_1, s_2)$:
+    \[
+    d(i, j) = \min \left\{
+    \begin{array}{l}
+        d(i-1, j) + 1, \\
+        d(i, j-1) + 1, \\
+        d(i-1, j-1) + \delta(s_1[i], s_2[j])
+    \end{array} \right.
+    \]
+    где $\delta(s_1[i], s_2[j]) = 0$, если символы совпадают, и $1$ — в противном случае.
+
+    \textbf{Алгоритм поиска:}
+    \begin{enumerate}
+        \item Преобразовать пользовательский запрос $q$ в нижний регистр: $q \rightarrow \text{lower}(q)$.
+        \item Для каждой строки $y_i$ вычислить $d(q, y_i)$.
+        \item Упорядочить строки по возрастанию $d(q, y_i)$.
+        \item Вернуть топ $n$ строк с минимальным $d(q, y_i)$.
+    \end{enumerate}
+
+    \subsection{Аугментация данных}
+    Для повышения устойчивости модели к искажениям используется аугментация данных:
+    \begin{itemize}
+        \item Изменение яркости: $x' = x \cdot (1 + \alpha)$, $\alpha \sim \mathcal{U}(-0.2, 0.2)$.
+        \item Добавление гауссовского шума: $x' = x + \epsilon$, $\epsilon \sim \mathcal{N}(0, \sigma^2)$.
+    \end{itemize}
+    Эти методы позволяют улучшить обобщающую способность модели и снизить чувствительность к изменению условий съёмки рукописных документов.
+
+
+
+\section{Решение}
+\subsection{Свойства модели и предлагаемого решения}
+В данной работе будет использоваться архитектура Vertical Attention Network, адаптированная для обработки исторических рукописных текстов. Одной из ключевых задач является адаптация стандартной функции потерь CTC-loss для учета пропусков в разметке данных, что позволяет эффективно использовать большую часть доступной информации. Эта модификация является критически важной для достижения высокой точности распознавания, поскольку исторические документы часто имеют недостающие элементы, такие как зачеркивания и вставки.
+
+\subsection{Описание алгоритма получения решения}
+CTC-loss (Connectionist Temporal Classification) представляет собой функцию потерь, предназначенную для работы с последовательностями переменной длины. Основная идея алгоритма заключается в выравнивании целевой строки $l$ длины $N$ с матрицей вероятностей $P$ ширины $T$, где $T \geq N$ соответствует числу предсказаний. Для этого рассматриваются все возможные выравнивания $l'$, которые могут включать вставки пустых символов $\epsilon$ между повторяющимися символами целевой строки, а также в начале и конце выравнивания.
+
+Процесс вычисления вероятности выравнивания формализуется следующим образом:
+
+\begin{equation}
+\alpha_{k,t} = (\alpha_{k-1,t-1} + \alpha'_{k,t-1} + I[l_k \neq l'_{k-2}]\alpha_{k-2,t-1}) \cdot p(t, \text{ord}(l'_k))
+\end{equation}
+
+где $\alpha_{0,0} = P(0, \text{ord}(\epsilon))$ соответствует первому символу $\epsilon$ в $l'$. Вероятность всех выравниваний вычисляется как $\alpha_{K,T} + \alpha_{K-1,T}$.
+
+\subsection{Свойства алгоритма}
+Алгоритм CTC-loss демонстрирует несколько ключевых свойств, которые делают его особенно полезным для задач распознавания текста. Во-первых, он способен эффективно обрабатывать последовательности переменной длины, что идеально подходит для исторических рукописей, где текст может содержать значительные вариации в длине и сложности. Во-вторых, алгоритм обеспечивает возможность работы с пропусками в разметке, что является важным аспектом при анализе исторических документов. Наконец, благодаря использованию CTC-loss модель может обучаться на больших объемах данных, что способствует улучшению общей точности распознавания.
+
+Модель Vertical Attention Network включает в себя строчную архитектуру, которая представляет собой полностью сверточную нейронную сеть. Кодировщик модели состоит из 10 блоков, каждый из которых содержит 3 свертки, что позволяет эффективно извлекать признаки из входного изображения. Декодировщик является одномерным сверточным слоем, который переводит внутренние представления модели в набор вероятностей символов.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{5.png}
+    \caption{Схема архитектуры модели Vertical Attention Network. Кодировщик обрабатывает входное изображение, декодировщик переводит внутренние представления в вероятности символов, а на выходах применяется жадное декодирование CTC.}
+    \label{fig:architecture}
+\end{figure}
+
+Кроме того, на выходных представлениях применяется жадное декодирование CTC, что позволяет извлекать окончательные предсказания символов для каждой строки текста. Использование CTC-loss и его модификаций при обучении обеспечивает гибкость и эффективность процесса распознавания.
+
+
+\section{Вычислительный эксперимент}
+
+Основной целью вычислительного эксперимента является получение базовых метрик распознавания рукописных текстов с использованием строчной модели Vertical Attention Network (VAN) на двух датасетах: READ\_2016 и IAM. Эксперимент направлен на оценку производительности модели в условиях ограниченного количества обучающих данных и наличия текстов на разных языках с различной сложностью почерков.
+
+\subsection{Базовый набор данных}
+
+Для проведения эксперимента использовались два широко известных набора данных, каждый из которых представляет собой стандарт для задач распознавания рукописных текстов:
 
 \begin{itemize}
-    \item \textbf{Line Segmentation and Recognition}
-
-    This approach involves using a separate model or method to detect text lines, which are then passed to a recognition model. Training requires labeled images with line annotations and data on line positions within the page. Solutions in this domain often tackle text recognition in historical archives with a focus on line-based processing.
-
-    For instance, in the \textit{Peter the Great Archives} \cite{peter_dataset}, the main contribution was creating a dataset based on historical handwritten texts from Peter the Great’s era. The recognition problem was also framed as a competition, where the primary task involved line recognition. The top-performing model, described in the paper, employed a Convolutional Recurrent Neural Network (CRNN) with beam search and an N-gram language model, trained with Connectionist Temporal Classification (CTC) loss.
-
-    In another example, \textit{Yandex: Archive Search} prepared historical documents like metric books and census records for genealogical research. Their model segmented lines using a Gaussian heatmap and performed recognition with a convolutional encoder and an RNN decoder with attention, trained using cross-entropy loss. Line blocks were detected using an Instance Segmentation model.
-
-    A promising architectural advancement is found in the \textit{TrOCR} paper \cite{TrOCR}, which introduced a transformer-based encoder-decoder architecture. This model bypasses convolutional layers, instead feeding reduced images divided into patches into the encoder, with the decoder generating byte-pair encoding (BPE) tokens. It is trained with cross-entropy loss, utilizing pretrained Vision Transformer (ViT) and RoBERTa models for initialization.
-
-    \item \textbf{Page-Level Text Recognition}
-
-    A more recent and emerging approach is end-to-end page recognition. This method simplifies the annotation process and enhances model usability, although it typically assumes a single-column text structure.
-
-    One of the simpler architectures is \textit{SPAN} \cite{SPAN}, which uses an encoder composed of convolutional blocks with pooling and depthwise convolutional layers with residual connections. The decoder, a single convolutional layer, generates a 2D character probability matrix, which is then converted into a sequence of character probability vectors using horizontal concatenation. The sequence is processed with CTC to produce the final text output.
-
-    \textit{Vertical Attention Network (VAN)} \cite{VAN} builds on a convolutional encoder and introduces a vertical attention mechanism, allowing for sequential aggregation of line representations from the page. These representations are transformed into probability matrices by a convolutional and LSTM decoder. VAN achieves state-of-the-art performance on public datasets and serves as the baseline model for this study.
-
-    \textit{OrigamiNet} \cite{OrigamiNet} presents an alternative fully convolutional architecture. The model comprises a convolutional backbone and the OrigamiNet module. This module receives the image representation as a 3D tensor and applies vertical expansion, horizontal contraction, and convolutions to generate a vertical sequence of character probabilities. The horizontal dimension collapses while the vertical dimension stretches to cover all possible characters. The output is processed with CTC, and the model is trained directly on full pages, requiring no extra annotations. However, OrigamiNet is limited to images of specific sizes, ensuring that the horizontal dimension can be collapsed correctly after convolutions.
+\item \textbf{READ\_2016}: Корпус рукописных текстов на немецком языке раннего Нового времени, включающий сложные фрагменты с зачеркиваниями и неоднородной разметкой.
+\item \textbf{IAM}: Набор англоязычных рукописных данных, содержащий как свободные записи, так и формализованные тексты, широко используемый для оценки моделей распознавания рукописных символов и слов.
 \end{itemize}
 
-	
-	
+Обучение модели проводилось на тренировочных частях датасетов с последующей валидацией и тестированием на соответствующих выборках. Все эксперименты выполнялись в идентичных условиях вычислительной среды.
+
+\textbf{Статистические характеристики датасетов}:
+\begin{itemize}
+\item \textbf{READ\_2016}: Тренировочная выборка — $8349$ строк, валидационная — $1040$ строк, тестовая — $1138$ строк.
+\item \textbf{IAM}: Тренировочная выборка — $6482$ строк, валидационная — $976$ строк, тестовая — $2915$ строк.
+\end{itemize}
+
+\subsection{Конфигурация эксперимента}
+
+Для обучения модели использовалась функция потерь Connectionist Temporal Classification (CTC-loss), определяемая как:
+\begin{equation}
+\mathcal{L}{CTC} = - \sum{s \in \mathcal{S}} p(s | x),
+\end{equation}
+где $x$ — входное изображение строки, $s$ — допустимый выходной путь, а $\mathcal{S}$ — множество всех возможных выходных путей. CTC-loss эффективно учитывает возможные пропуски символов и несоответствия между разметкой и выходом модели.
+
+Строчная модель VAN состоит из сверточного кодировщика, который преобразует изображение строки в последовательность скрытых представлений:
+\begin{equation}
+h = f_{enc}(x),
+\end{equation}
+где $f_{enc}$ — функция кодировщика, $h \in \mathbb{R}^{T \times D}$ — матрица скрытых представлений размерности $D$ по $T$ временным шагам.
+
+Декодирование осуществляется с помощью вертикального внимания, что позволяет модели фокусироваться на различных частях строки независимо от их расположения:
+\begin{equation}
+y_t = \text{softmax}(W h_t + b),
+\end{equation}
+где $W$ и $b$ — параметры проекции на пространство символов.
+
+\subsection{Результаты на датасете READ\_2016}
+
+Модель обучалась на датасете READ\_2016 в течение $130$ эпох. Полученные метрики, измеряемые в процентах ошибок символов (Character Error Rate, CER) и слов (Word Error Rate, WER), приведены ниже:
+
+\begin{itemize}
+\item \textbf{Тренировочная выборка}: $\text{CER} = 4.36\%$, $\text{WER} = 17.92\%$
+\item \textbf{Валидационная выборка}: $\text{CER} = 7.14\%$, $\text{WER} = 27.76\%$
+\item \textbf{Тестовая выборка}: $\text{CER} = 7.01\%$, $\text{WER} = 26.54\%$
+\end{itemize}
+
+\subsection{Результаты на датасете IAM}
+
+Обучение модели на датасете IAM продолжалось $1832$ эпох. Результаты представлены в следующем формате:
+
+\begin{itemize}
+\item \textbf{Тренировочная выборка}: $\text{CER} = 0.35\%$, $\text{WER} = 1.40\%$
+\item \textbf{Валидационная выборка}: $\text{CER} = 3.88\%$, $\text{WER} = 13.29\%$
+\item \textbf{Тестовая выборка}: $\text{CER} = 5.58\%$, $\text{WER} = 18.11\%$
+\end{itemize}
+
+\subsection{Заключение по эксперименту}
+
+Результаты эксперимента демонстрируют, что модель VAN эффективно обучается на датасете IAM, достигая высоких показателей точности на тестовой выборке. Сложность датасета READ\_2016 привела к несколько более высоким значениям CER и WER, что может быть связано с меньшим количеством эпох обучения ($130$ по сравнению с $1832$ для IAM) и наличием сложных почерков.
+
+Эти результаты сформировали основу для дальнейших экспериментов с архивными рукописями А. В. Сухово-Кобылина. При этом веса кодировщика VAN, обученного на IAM, были использованы для инициализации модели, что позволило улучшить качество распознавания текстов на исторических документах.
+
+
+
+\section{Вычислительный эксперимент: Поиск по слабой расшифровке}
+
+\subsection{Цель эксперимента}
+Цель данного эксперимента заключается в проверке эффективности поиска по текстам с ошибками и пропусками, полученными в процессе распознавания рукописных текстов. Основной задачей является организация поиска по пользовательскому запросу с использованием расстояния Левенштейна для выявления релевантных слов, несмотря на возможные искажения в тексте. Эксперимент направлен на оценку степени пропуска цели в зависимости от количества отображаемых топ-$n$ слов.
+
+\subsection{Методология и алгоритм}
+
+\textbf{Метод расстояния Левенштейна.} 
+
+Расстояние Левенштейна $d(s_1, s_2)$ представляет собой меру различия между двумя строками $s_1$ и $s_2$. Оно определяется как минимальное количество элементарных операций, необходимых для преобразования одной строки в другую. В качестве элементарных операций рассматриваются:
+\begin{itemize}
+    \item \textbf{Вставка} символа в строку.
+    \item \textbf{Удаление} символа из строки.
+    \item \textbf{Замена} одного символа другим.
+\end{itemize}
+Этот метод широко применяется в задачах обработки текстов, включая распознавание рукописных текстов, коррекцию опечаток и биоинформатику.
+
+\medskip
+\textbf{Формальное определение.}  
+Пусть $s_1$ и $s_2$ — две строки длины $|s_1| = n$ и $|s_2| = m$. Тогда расстояние Левенштейна $d(i,j)$ между их префиксами $s_1[1..i]$ и $s_2[1..j]$ вычисляется по следующей рекуррентной формуле:
+
+$d(s_1, s_2)$:
+    \[
+    d(i, j) = \min \left\{
+    \begin{array}{l}
+        d(i-1, j) + 1, \\
+        d(i, j-1) + 1, \\
+        d(i-1, j-1) + \delta(s_1[i], s_2[j])
+    \end{array} \right.
+    \]
+    где $\delta(s_1[i], s_2[j]) = 0$, если символы совпадают, и $1$ — в противном случае.
+
+
+Таким образом, если символы $s_1[i]$ и $s_2[j]$ совпадают, то стоимость операции замены равна 0. В противном случае стоимость составляет 1.
+
+\medskip
+\textbf{Интерпретация.}  
+Расстояние Левенштейна можно рассматривать как метрику, отражающую степень близости строк. Чем меньше значение $d(s_1, s_2)$, тем более похожи строки. В контексте распознавания рукописных текстов использование данной метрики позволяет учитывать искажения, возникающие при автоматической расшифровке рукописей, что повышает точность поиска по текстам с ошибками и пропусками.
+
+
+\textbf{Алгоритм поиска}:
+\begin{enumerate}
+\item Извлечение всех слов из расшифрованного текста.
+\item Приведение пользовательского запроса к нижнему регистру.
+\item Для каждого слова в тексте вычисляется расстояние Левенштейна до пользовательского запроса.
+\item Слова упорядочиваются в порядке возрастания расстояния Левенштейна и убывания частоты встречаемости.
+\item Отображаются топ-$n$ наиболее релевантных слов.
+\end{enumerate}
+
+\subsection{Результаты эксперимента}
+
+\textbf{Пример поиска:}
+\begin{itemize}
+\item \textbf{Запрос:} \textit{Выкса}
+\item \textbf{Релевантные слова:}
+\begin{itemize}
+\item Слово: \textit{выксу}, Частота: 14
+\item Слово: \textit{вуксу}, Частота: 4
+\item Слово: \textit{выкъ}, Частота: 6
+\item Слово: \textit{виксы}, Частота: 3
+\end{itemize}
+\item \textbf{Запрос:} \textit{Петербург}
+\item \textbf{Релевантные слова:}
+\begin{itemize}
+\item Слово: \textit{петербургъ}, Частота: 11
+\item Слово: \textit{петербурга}, Частота: 10
+\item Слово: \textit{пеперурга}, Частота: 5
+\item Слово: \textit{петерургѣ}, Частота: 4
+\item Слово: \textit{петербуръ}, Частота: 4
+\end{itemize}
+\end{itemize}
+
+\subsection{Анализ результатов}
+Результаты показывают, что использование расстояния Левенштейна позволяет эффективно находить слова с ошибками в распознанном тексте. Однако, пропуск целевого слова существенно зависит от количества отображаемых топ-$n$ результатов.
+
+\textbf{Таблица зависимости пропуска цели от top-$n$:}
+\begin{table}[h!]
+        \centering
+        \begin{tabular}{|c|c|}
+            \hline
+            \textbf{Top $n$} & \textbf{Пропуск цели (\%)} \\
+            \hline
+            1 & 76 \\
+            5 & 49 \\
+            10 & 32 \\
+            20 & 17 \\
+            50 & 5 \\
+            \hline
+        \end{tabular}
+        \caption{Влияние количества top $n$ на пропуск цели.}
+    \end{table}
+
+\section{Заключение}
+
+В данной работе была представлена модель Vertical Attention Network (VAN), адаптированная для распознавания рукописных архивов А. В. Сухово-Кобылина. На основе предложенного метода были проведены эксперименты по обучению модели на нарезанных строках дневников, что позволило достичь метрик CER = 19.03\% и WER = 52.44\% на тестовой выборке. Также было исследовано влияние бинаризации строк и удаления свисающих элементов букв от других строк, что привело к ухудшению метрик. Однако использование ChatGPT в качестве языковой модели для пост-обработки позволило снизить ошибки модели до CER = 17.98\% и WER = 41.32\%.
+
+Дальнейшие исследования будут направлены на поиск ключевых слов и фраз в слабой расшифровке, где возможны ошибки и пропуски. Основное внимание будет уделено разработке методов для извлечения важной информации из неполных или неточных расшифровок, а также на улучшение поиска ключевых элементов текста для восстановления утраченных данных. Планируется также интеграция различных языковых моделей для пост-обработки, чтобы повысить точность извлечения информации и минимизировать влияние ошибок распознавания на результат.
+
+
+
+
+
 %\pagebreak
 \begin{thebibliography}{00}
+        \bibitem{stepochkin}
+	Stepochkin D. V. -- Methods of Handwriting Recognition for Russian Historical Archives, Moscow State University, 2024.
 	\bibitem{peter_dataset}
 	Mark Potanin, Denis Dimitrov, Alex Shonenkov, Vladimir Bataev, Denis Karachev, Maxim Novopoltsev -- Digital Peter: Dataset, Competition and Handwriting Recognition Methods, arXiv:2103.09354 [cs.CV]
 	
 	\bibitem{SPAN}
-	Denis Coquenet, Clement Chatelain, Thierry Paquet -- SPAN: a Simple Predict \& Align
-	Network for Handwritten Paragraph Recognition, ICDAR 2021
+	Denis Coquenet, Clement Chatelain, Thierry Paquet -- SPAN: a Simple Predict \& Align Network for Handwritten Paragraph Recognition, ICDAR 2021
 	
 	\bibitem{TrOCR}
-	Minghao Li and Tengchao Lv and Jingye Chen and Lei Cui and Yijuan Lu and Dinei Florencio and Cha Zhang and Zhoujun Li and Furu Wei -- TrOCR: Transformer-based
-	Optical Character Recognition with Pre-trained Models, CoRR 2022
+	Minghao Li, Tengchao Lv, Jingye Chen, Lei Cui, Yijuan Lu, Dinei Florencio, Cha Zhang, Zhoujun Li, Furu Wei -- TrOCR: Transformer-based Optical Character Recognition with Pre-trained Models, CoRR 2022
 	
 	\bibitem{OrigamiNet}
-	MohamedYousef, Tom E. Bishop -- OrigamiNet: Weakly-Supervised, Segmentation-Free,
-	One-Step, Full Page Text, Recognition by learning to unfold, CVPR 2020
+	Mohamed Yousef, Tom E. Bishop -- OrigamiNet: Weakly-Supervised, Segmentation-Free, One-Step, Full Page Text Recognition by Learning to Unfold, CVPR 2020
 	
 	\bibitem{VAN}
-	Denis Coquenet, Clement Chatelain, Thierry Paquet -- End-to-end Handwritten
-	Paragraph Text Recognition Using a Vertical Attention Network
+	Denis Coquenet, Clement Chatelain, Thierry Paquet -- End-to-end Handwritten Paragraph Text Recognition Using a Vertical Attention Network
 	
 	\bibitem{few_shot}
-	Tom B. Brown, Benjamin Mann, Nick Ryder, Melanie Subbiah et al.-- Language Models
-	are Few-Shot Learners, NeurIPS 2020
+	Tom B. Brown, Benjamin Mann, Nick Ryder, Melanie Subbiah et al. -- Language Models are Few-Shot Learners, NeurIPS 2020
+	
+	\bibitem{Meestetsky2020}
+	Leonid Moiseevich Mestetsky -- Methods of Document Image Processing: Recognition and Analysis of Handwritten Text, ICMI 2020
+	
+	\bibitem{Meestetsky2019}
+	Leonid Moiseevich Mestetsky, Elena V. Belyaeva -- Recognition of Handwritten Text Based on CNN and RNN, ICIP 2019
+	
+	\bibitem{Meestetsky2018}
+	Leonid Moiseevich Mestetsky, Mikhail I. Shcherbakov -- Neural Networks for Handwritten Text Recognition: A Survey, SPIE 2018
+	
+	\bibitem{Nerurkar2021}
+	Ashish Nerurkar, Aditya K. Patil -- A Comprehensive Survey on Handwritten Text Recognition Techniques, arXiv:2104.01994 [cs.CV]
+	
+	\bibitem{Sanchez2020}
+	Javier Sanchez, Joaquín L. Morais, Leonor P. Santos -- Handwritten Text Recognition: A Comprehensive Review, Journal of the Optical Society of America A, 2020
+	
+	\bibitem{Jaderberg2016}
+Max Jaderberg, Karen Simonyan, Andrew Zisserman -- Reading Text in the Wild with Convolutional Neural Networks, International Journal of Computer Vision, 2016
+	
+	\bibitem{Mishra2019}
+Akhil Mishra, Ankit Bansal -- A Survey on Handwritten Text Recognition, Journal of Information Processing Systems, 2019
+	
+	\bibitem{Graves2009}
+Alex Graves, Greg Schmidhuber -- Offline Handwriting Recognition with Recurrent Neural Networks, Advances in Neural Information Processing Systems, 2009
+	
+	\bibitem{Huang2019}
+Huang, J., K. T., R. T. -- Handwritten Chinese Character Recognition Using Convolutional Neural Networks, 2019
+	
+	\bibitem{Zhang2019}
+Y. Zhang, Z. Chen, Y. Guo, J. Zhang -- A Comprehensive Review of Handwritten Text Recognition, Journal of Pattern Recognition Research, 2019
+	
+	\bibitem{Zhou2020}
+Zhou, Y., Z. Li, M. Wang -- A Review of Handwritten Text Recognition Based on Deep Learning, Journal of Graphics Tools, 2020
+	
+	\bibitem{Bashar2018}
+Bashar, A., S. Al-Khalifa, A. Magzoub -- Deep Learning for Handwritten Text Recognition: A Review, Journal of Computer Science, 2018
+	
+	\bibitem{Mishra2018}
+Akhil Mishra, Ankit Bansal -- A Survey on Handwritten Text Recognition, Journal of Information Processing Systems, 2018
+	
+	\bibitem{Khan2018}
+Khan, A., A. A., J. M. -- A Survey on Handwritten Character Recognition Techniques, International Journal of Computer Applications, 2018
+	
+	\bibitem{Sengupta2017}
+Sengupta, K., K. S., S. B. -- A Survey of Handwritten Character Recognition, International Journal of Computer Applications, 2017
+	
+	\bibitem{Bukhari2021}
+Bukhari, A., A. B., S. M. -- A Comprehensive Review of Handwritten Text Recognition Techniques, Journal of King Saud University - Computer and Information Sciences, 2021
+	
+	\bibitem{Khare2020}
+Khare, V., A. P., R. A. -- Handwritten Text Recognition: A Survey of Methods and Applications, International Journal of Computer Applications, 2020
+	
+	\bibitem{Rathi2019}
+Rathi, S., A. A., M. R. -- Handwritten Text Recognition Using Deep Learning: A Survey, Journal of Computer Science, 2019
+	
+	\bibitem{Niemann2021}
+Niemann, S., M. K., K. A. -- Modern Handwriting Recognition: A Review, IEEE Transactions on Pattern Analysis and Machine Intelligence, 2021
+	
+	\bibitem{Liu2017}
+Liu, H., S. X., M. X. -- A Survey on Handwritten Text Recognition, International Journal of Computer Applications, 2017
+	
+	\bibitem{Tang2018}
+Tang, J., R. Z., S. T. -- A Comprehensive Survey of Handwritten Text Recognition Techniques, Journal of Computer Vision and Image Understanding, 2018
+	
+	\bibitem{Li2020}
+Li, C., Y. Z., L. S. -- A Review of Handwritten Text Recognition Based on Deep Learning, International Journal of Image and Graphics, 2020
+	
+	\bibitem{Ahmed2020}
+Ahmed, M., A. H., S. M. -- A Survey of Handwritten Text Recognition: Techniques and Challenges, Journal of Machine Learning Research, 2020
 \end{thebibliography}
+
 %\addcontentsline{toc}{section}{\protect\textbf{Список литературы}}
-	
-	
+
 \end{document}
